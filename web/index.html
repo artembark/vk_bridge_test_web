@@ -36,6 +36,17 @@
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <script src="https://unpkg.com/@vkontakte/vk-bridge@2.5.1/dist/browser.min.js"></script>
+
+  <script>
+    vkBridge.subscribe((event) => {
+        if (window.vkBridgeDartListener != null) {
+            window.vkBridgeDartListener(event.detail);
+        }
+    });
+</script>
+
+  <script src="main.dart.js" type="application/javascript"></script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;

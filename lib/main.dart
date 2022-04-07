@@ -1,23 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vk_bridge/vk_bridge.dart';
-
-//import 'examples_page.dart';
-
-class SimpleLogger implements Logger {
-  @override
-  void d(Object message) {
-    print('vk_bridge.d: $message');
-  }
-
-  @override
-  void e(Object message) {
-    print('vk_bridge.e: $message');
-  }
-}
+import 'package:vk_bridge/src/data/model/results/vk_web_app_get_user_info_result/vk_web_app_get_user_info_result.dart';
 
 Future<void> main() async {
-  VKBridge.instance.setLogger(SimpleLogger());
-
   final result = await VKBridge.instance.init();
 
   print('VKBridge.init: $result');
@@ -33,8 +18,25 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World'),
+        body: SafeArea(
+          child: Center(
+            child: FutureBuilder(
+              future: VKBridge.instance.getUserInfo(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                }
+                if (snapshot.hasError) {
+                  return Text('FutureBuilder Error');
+                }
+                if (snapshot.hasData) {
+                  return Text('Привет ' +
+                      (snapshot.data as VKWebAppGetUserInfoResult).firstName);
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          ),
         ),
       ),
     );
