@@ -49,7 +49,7 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              //_textController.forward();
+              _textController.forward();
             }
           });
 
@@ -70,7 +70,10 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     ));
 
-    _textAnimation = Tween(begin: 0.0, end: 1.0).animate(_containerController);
+    _textAnimation = Tween(begin: 0.0, end: 1.0).animate(_textController)
+      ..addListener(() {
+        setState(() {});
+      });
 
     _containerController.forward();
   }
@@ -95,30 +98,7 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   scoreRow(widget.questionLogic.getAnswerList(), 60.0, true),
-                  AnimatedTextKit(
-                    animatedTexts: [
-                      ColorizeAnimatedText('',
-                          textStyle: TextStyle(
-                              fontSize: 30.0, fontWeight: FontWeight.bold),
-                          colors: [
-                            Colors.purple,
-                            Colors.blue,
-                            Colors.yellow,
-                            Colors.red
-                          ]),
-                      ColorizeAnimatedText(
-                          'Тест завершен на ${widget.correctAnswerPercent}%',
-                          textStyle: TextStyle(
-                              fontSize: 20.0, fontWeight: FontWeight.bold),
-                          colors: [
-                            Colors.purple,
-                            Colors.blue,
-                            Colors.yellow,
-                            Colors.red
-                          ])
-                    ],
-                    isRepeatingAnimation: false,
-                  ),
+                  Text('Тест завершен на ${widget.correctAnswerPercent}%'),
                   TextButton(
                       onPressed: () {
                         Navigator.pop(context);
