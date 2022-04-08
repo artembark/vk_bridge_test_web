@@ -49,7 +49,7 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
           })
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              _textController.forward();
+              //_textController.forward();
             }
           });
 
@@ -70,10 +70,7 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
       curve: Curves.bounceOut,
     ));
 
-    _textAnimation = Tween(begin: 0.0, end: 1.0).animate(_textController)
-      ..addListener(() {
-        setState(() {});
-      });
+    _textAnimation = Tween(begin: 0.0, end: 1.0).animate(_containerController);
 
     _containerController.forward();
   }
