@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         body: SafeArea(
           child: Center(
             child: FutureBuilder(
-              //future: VKBridge.instance.getUserInfo(),
-              future: data,
+              future: VKBridge.instance.getUserInfo(),
+              //future: data,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
