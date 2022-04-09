@@ -35,27 +35,26 @@ class MyApp extends StatelessWidget {
                   return const Text('FutureBuilder Error');
                 }
                 if (snapshot.hasData) {
-                  return Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Привет ' +
-                              (snapshot.data as VKWebAppGetUserInfoResult)
-                                  .firstName,
-                          style: const TextStyle(fontSize: 40.0),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const TestingPage(),
-                                ),
-                              );
-                            },
-                            child: const Text('Поиграем?'))
-                      ],
-                    ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Привет ' +
+                            (snapshot.data as VKWebAppGetUserInfoResult)
+                                .firstName,
+                        style: const TextStyle(fontSize: 40.0),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TestingPage(),
+                              ),
+                            );
+                          },
+                          child: const Text('Поиграем?'))
+                    ],
                   );
                 }
                 return const CircularProgressIndicator();
