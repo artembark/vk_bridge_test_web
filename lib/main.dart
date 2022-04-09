@@ -4,9 +4,9 @@ import 'package:vk_bridge/src/data/model/results/vk_web_app_get_user_info_result
 import 'package:vk_bridge_test_web/testing_page.dart';
 
 Future<void> main() async {
-  //final result = await VKBridge.instance.init();
+  final result = await VKBridge.instance.init();
 
-  //print('VKBridge.init: $result');
+  print('VKBridge.init: $result');
 
   runApp(MyApp());
 }
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         body: SafeArea(
           child: Center(
             child: FutureBuilder(
-              //future: VKBridge.instance.getUserInfo(),
-              future: data,
+              future: VKBridge.instance.getUserInfo(),
+              //future: data,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
