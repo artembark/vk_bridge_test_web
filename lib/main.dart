@@ -32,12 +32,26 @@ class MyApp extends StatelessWidget {
                   return const CircularProgressIndicator();
                 }
                 if (snapshot.hasError) {
-                  return Text('FutureBuilder Error');
+                  return const Text('FutureBuilder Error');
                 }
                 if (snapshot.hasData) {
-                  // return Text('Привет ' +
-                  //     (snapshot.data as VKWebAppGetUserInfoResult).firstName);
-                  return TestingPage();
+                  return Column(
+                    children: [
+                      Text('Привет ' +
+                          (snapshot.data as VKWebAppGetUserInfoResult)
+                              .firstName),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TestingPage(),
+                              ),
+                            );
+                          },
+                          child: const Text('Поиграем?'))
+                    ],
+                  );
                 }
                 return const CircularProgressIndicator();
               },

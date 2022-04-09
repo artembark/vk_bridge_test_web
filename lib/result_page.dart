@@ -98,7 +98,7 @@ class _ResultPageState extends State<ResultPage> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   scoreRow(widget.questionLogic.getAnswerList(), 60.0, true),
-                  Text('Тест завершен на ${widget.correctAnswerPercent}%'),
+                  Text('Тест 1 завершен на ${widget.correctAnswerPercent}%'),
                   TextButton(
                       onPressed: () {
                         Navigator.pop(context);
