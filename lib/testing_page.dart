@@ -17,61 +17,65 @@ class _TestingPageState extends State<TestingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(
-          flex: 3,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: Text(
-                questionLogic.getQuestion(),
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 60),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: GestureDetector(
-              onTap: () {
-                checkAnswer(true);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.green,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 3,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Center(
+                  child: Text(
+                    questionLogic.getQuestion(),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 60),
+                  ),
                 ),
-                child: Center(child: Text('Истина')),
               ),
             ),
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: GestureDetector(
-              onTap: () {
-                checkAnswer(false);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.red,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: GestureDetector(
+                  onTap: () {
+                    checkAnswer(true);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.green,
+                    ),
+                    child: Center(child: Text('Истина')),
+                  ),
                 ),
-                child: Center(child: Text('Ложь')),
               ),
             ),
-          ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: GestureDetector(
+                  onTap: () {
+                    checkAnswer(false);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.red,
+                    ),
+                    child: Center(child: Text('Ложь')),
+                  ),
+                ),
+              ),
+            ),
+            Hero(
+              tag: 'scoreTag',
+              child: scoreRow(questionLogic.getAnswerList(), 40, false),
+            )
+          ],
         ),
-        Hero(
-          tag: 'scoreTag',
-          child: scoreRow(questionLogic.getAnswerList(), 40, false),
-        )
-      ],
+      ),
     );
   }
 
