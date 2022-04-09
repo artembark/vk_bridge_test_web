@@ -6,13 +6,9 @@ import 'package:vk_bridge_test_web/testing_page.dart';
 Future<void> main() async {
   final result = await VKBridge.instance.init();
 
-  print('VKBridge.init: $result');
-
   runApp(MyApp());
 }
 
-Future<String> data =
-    Future.delayed(Duration(milliseconds: 1)).then((value) => 'Hello');
 
 class MyApp extends StatelessWidget {
   @override
@@ -24,18 +20,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: SafeArea(
           child: Center(
-            child: FutureBuilder(
-              //future: VKBridge.instance.getUserInfo(),
-              future: data,
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                }
-                if (snapshot.hasError) {
-                  return const Text('FutureBuilder Error');
-                }
-                if (snapshot.hasData) {
-                  return Column(
+            child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
@@ -55,14 +40,10 @@ class MyApp extends StatelessWidget {
                           },
                           child: const Text('Поиграем?'))
                     ],
-                  );
-                }
-                return const CircularProgressIndicator();
-              },
+                  )
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
