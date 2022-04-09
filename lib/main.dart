@@ -6,38 +6,62 @@ import 'package:vk_bridge_test_web/testing_page.dart';
 Future<void> main() async {
   final result = await VKBridge.instance.init();
 
-  runApp(MaterialApp(
-    home: MyApp(),
-  ));
+  print('VKBridge.init: $result');
+
+  runApp(MyApp());
 }
+
+Future<String> data =
+    Future.delayed(Duration(seconds: 1)).then((value) => 'Hello');
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Приветы ', //+
-              //(snapshot.data as VKWebAppGetUserInfoResult)
-              //  .firstName,
-              style: const TextStyle(fontSize: 40.0),
-            ),
-            TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const TestingPage(),
-                    ),
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        body: SafeArea(
+          child: Center(
+            child: FutureBuilder(
+              future: VKBridge.instance.getUserInfo(),
+              //future: data,
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                }
+                if (snapshot.hasError) {
+                  return const Text('FutureBuilder Error');
+                }
+                if (snapshot.hasData) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Привет ' +
+                            (snapshot.data as VKWebAppGetUserInfoResult)
+                                .firstName,
+                        style: const TextStyle(fontSize: 40.0),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const TestingPage(),
+                              ),
+                            );
+                          },
+                          child: const Text('Поиграем?'))
+                    ],
                   );
-                },
-                child: const Text('Поиграем?'))
-          ],
-        )),
+                }
+                return const CircularProgressIndicator();
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
