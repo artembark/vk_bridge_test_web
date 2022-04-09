@@ -12,7 +12,7 @@ Future<void> main() async {
 }
 
 Future<String> data =
-    Future.delayed(Duration(seconds: 1)).then((value) => 'Hello');
+    Future.delayed(Duration(milliseconds: 1)).then((value) => 'Hello');
 
 class MyApp extends StatelessWidget {
   @override
@@ -25,8 +25,8 @@ class MyApp extends StatelessWidget {
         body: SafeArea(
           child: Center(
             child: FutureBuilder(
-              future: VKBridge.instance.getUserInfo(),
-              //future: data,
+              //future: VKBridge.instance.getUserInfo(),
+              future: data,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const CircularProgressIndicator();
@@ -39,9 +39,9 @@ class MyApp extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Привет ' +
-                            (snapshot.data as VKWebAppGetUserInfoResult)
-                                .firstName,
+                        'Приветы ', //+
+                        //(snapshot.data as VKWebAppGetUserInfoResult)
+                        //  .firstName,
                         style: const TextStyle(fontSize: 40.0),
                       ),
                       TextButton(
