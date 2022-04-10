@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
               //future: data,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Lottie.asset('music/.json');
+                  return Lottie.asset('music.json');
                 }
                 if (snapshot.hasError) {
                   return const Text('FutureBuilder Error');
