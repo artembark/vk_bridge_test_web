@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:vk_bridge/vk_bridge.dart';
 import 'package:vk_bridge/src/data/model/results/vk_web_app_get_user_info_result/vk_web_app_get_user_info_result.dart';
 import 'package:vk_bridge_test_web/testing_page.dart';
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
               future: data,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Lottie.asset('music.json');
+                  return Text('Загружаем...');
                 }
                 if (snapshot.hasError) {
                   return const Text('FutureBuilder Error');
@@ -41,8 +40,8 @@ class MyApp extends StatelessWidget {
                     children: [
                       Text(
                         'Привет ', //+
-                            //(snapshot.data as VKWebAppGetUserInfoResult)
-                              //  .firstName,
+                        //(snapshot.data as VKWebAppGetUserInfoResult)
+                        //  .firstName,
                         style: const TextStyle(fontSize: 40.0),
                       ),
                       TextButton(
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
                     ],
                   );
                 }
-                return Lottie.asset('assets/music.json');
+                return Text('Загружаем...');
               },
             ),
           ),
