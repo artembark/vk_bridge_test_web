@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:vk_bridge/vk_bridge.dart';
 import 'package:vk_bridge/src/data/model/results/vk_web_app_get_user_info_result/vk_web_app_get_user_info_result.dart';
 import 'package:vk_bridge_test_web/testing_page.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
               //future: data,
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
+                  return Lottie.asset('music/.json');
                 }
                 if (snapshot.hasError) {
                   return const Text('FutureBuilder Error');
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
                     ],
                   );
                 }
-                return const CircularProgressIndicator();
+                return Lottie.asset('assets/music.json');
               },
             ),
           ),
