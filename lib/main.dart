@@ -49,8 +49,8 @@ class _MainPageState extends State<MainPage> {
       body: SafeArea(
         child: Center(
           child: FutureBuilder(
-            future: VKBridge.instance.getUserInfo(),
-            //future: data,
+            //future: VKBridge.instance.getUserInfo(),
+            future: data,
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Text('Загружаем...');
@@ -63,9 +63,9 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Привет ' +
-                          (snapshot.data as VKWebAppGetUserInfoResult)
-                              .firstName,
+                      'Привет ', //+
+                      //(snapshot.data as VKWebAppGetUserInfoResult)
+                      //   .firstName,
                       style: const TextStyle(fontSize: 40.0),
                     ),
                     TextButton(
