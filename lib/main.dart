@@ -11,9 +11,6 @@ Future<void> main() async {
   runApp(MyApp());
 }
 
-Future<String> data =
-    Future.delayed(Duration(seconds: 2)).then((value) => 'Hello');
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -43,8 +40,6 @@ class _MainPageState extends State<MainPage> {
     VKBridge.instance.updateConfigStream;
     VKBridge.instance.locationChangedStream;
     VKBridge.instance.viewHideStream;
-
-    VKBridge.instance.getUserInfo().then((value) => name = value.firstName);
   }
 
   @override
@@ -52,24 +47,38 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Привет, $name',
-                style: const TextStyle(fontSize: 40.0),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const TestingPage(),
-                      ),
-                    );
-                  },
-                  child: const Text('Поиграем?'))
-            ],
+          child: FutureBuilder(
+            future: VKBridge.instance.getUserInfo(),
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Text('Загружаем...');
+              }
+              if (snapshot.hasError) {
+                return const Text('FutureBuilder Error');
+              }
+              if (snapshot.hasData) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Привет, ${(snapshot.data as VKWebAppGetUserInfoResult).firstName}',
+                      style: const TextStyle(fontSize: 40.0),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TestingPage(),
+                            ),
+                          );
+                        },
+                        child: const Text('Поиграем?'))
+                  ],
+                );
+              }
+              return const Text('Загружаем...');
+            },
           ),
         ),
       ),
