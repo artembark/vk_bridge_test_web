@@ -48,44 +48,65 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: SafeArea(
         child: Center(
-          child: FutureBuilder(
-            //future: VKBridge.instance.getUserInfo(),
-            future: data,
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Text('Загружаем...');
-              }
-              if (snapshot.hasError) {
-                return const Text('FutureBuilder Error');
-              }
-              if (snapshot.hasData) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Привет ', //+
-                      //(snapshot.data as VKWebAppGetUserInfoResult)
-                      //   .firstName,
-                      style: const TextStyle(fontSize: 40.0),
-                    ),
-                    TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const TestingPage(),
-                            ),
-                          );
-                        },
-                        child: const Text('Поиграем?'))
-                  ],
-                );
-              }
-              return Text('Загружаем...');
-            },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Привет ',
+                style: const TextStyle(fontSize: 40.0),
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TestingPage(),
+                      ),
+                    );
+                  },
+                  child: const Text('Поиграем?'))
+            ],
           ),
         ),
       ),
     );
   }
 }
+
+/*
+FutureBuilder(
+//future: VKBridge.instance.getUserInfo(),
+future: data,
+builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+if (snapshot.connectionState == ConnectionState.waiting) {
+return Text('Загружаем...');
+}
+if (snapshot.hasError) {
+return const Text('FutureBuilder Error');
+}
+if (snapshot.hasData) {
+return Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+Text(
+'Привет ', //+
+//(snapshot.data as VKWebAppGetUserInfoResult)
+//   .firstName,
+style: const TextStyle(fontSize: 40.0),
+),
+TextButton(
+onPressed: () {
+Navigator.push(
+context,
+MaterialPageRoute(
+builder: (context) => const TestingPage(),
+),
+);
+},
+child: const Text('Поиграем?'))
+],
+);
+}
+return Text('Загружаем...');
+},
+)*/
