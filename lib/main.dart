@@ -34,6 +34,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  String name = '-';
+
   @override
   void initState() {
     super.initState();
@@ -41,6 +43,8 @@ class _MainPageState extends State<MainPage> {
     VKBridge.instance.updateConfigStream;
     VKBridge.instance.locationChangedStream;
     VKBridge.instance.viewHideStream;
+
+    VKBridge.instance.getUserInfo().then((value) => name = value.firstName);
   }
 
   @override
@@ -52,7 +56,7 @@ class _MainPageState extends State<MainPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Привет ',
+                'Привет, $name',
                 style: const TextStyle(fontSize: 40.0),
               ),
               TextButton(
